@@ -1,0 +1,116 @@
+table LocalDateTable_9d1fbb4f-deff-4997-a09e-ad8b8d12447c
+	isHidden
+	showAsVariationsOnly
+	lineageTag: 367b7229-96f6-4291-873b-798f3cdb906c
+
+	column Date
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 0b6b8774-cf87-400f-9ab4-794618d5d523
+		dataCategory: PaddedDateTableDates
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = User
+
+	column An = YEAR([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a5975593-cac2-45aa-9bed-e58f1bc29c9d
+		dataCategory: Years
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Year
+
+	column NrLună = MONTH([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8513ebcc-c402-4732-bc36-70565f79a030
+		dataCategory: MonthOfYear
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = MonthNumber
+
+	column Lună = FORMAT([Date], "MMMM")
+		dataType: string
+		isHidden
+		lineageTag: 200af3c8-d9f8-45b8-991b-f6f4e08bf8ba
+		dataCategory: Months
+		summarizeBy: none
+		sortByColumn: NrLună
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Month
+
+	column NrTrimestru = INT(([NrLună] + 2) / 3)
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7d4c49fa-c02f-4ebc-8eea-b89d660eeeb5
+		dataCategory: QuarterOfYear
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = QuarterNumber
+
+	column Trimestru = "Trim " & [NrTrimestru]
+		dataType: string
+		isHidden
+		lineageTag: 3f322dad-86d0-4c37-bfdd-07f5ca62286a
+		dataCategory: Quarters
+		summarizeBy: none
+		sortByColumn: NrTrimestru
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Quarter
+
+	column Zi = DAY([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6146af20-9dba-4b0c-930b-511d06f2813a
+		dataCategory: DayOfMonth
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Day
+
+	hierarchy 'Ierarhie de date'
+		lineageTag: d026de8f-0fc8-4be5-a6c8-4c7acb9e900f
+
+		level An
+			lineageTag: f97121f5-bbe9-486b-a01a-0954568abe67
+			column: An
+
+		level Trimestru
+			lineageTag: e8acd6f1-24a1-41f4-8682-e7c1ff9ecf1b
+			column: Trimestru
+
+		level Lună
+			lineageTag: 69ba3fba-8074-4d84-b8ce-9d0424627472
+			column: Lună
+
+		level Zi
+			lineageTag: 08aacb33-ad99-4a4d-8c03-6d9558e6d2b2
+			column: Zi
+
+		annotation TemplateId = DateHierarchy
+
+	partition LocalDateTable_9d1fbb4f-deff-4997-a09e-ad8b8d12447c = calculated
+		mode: import
+		source = Calendar(Date(Year(MIN('Sheet1'[Date])), 1, 1), Date(Year(MAX('Sheet1'[Date])), 12, 31))
+
+	annotation __PBI_LocalDateTable = true
+

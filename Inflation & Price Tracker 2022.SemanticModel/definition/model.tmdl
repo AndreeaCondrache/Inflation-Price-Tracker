@@ -1,0 +1,21 @@
+model Model
+	culture: ro-RO
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: ro-RO
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Sheet1"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Sheet1
+ref table DateTableTemplate_d32927df-0b58-4419-b809-a366365f6496
+ref table LocalDateTable_9d1fbb4f-deff-4997-a09e-ad8b8d12447c
+
+ref cultureInfo ro-RO
+

@@ -1,0 +1,112 @@
+table Sheet1
+	lineageTag: a6b0dd33-1112-41fb-9713-9c2cfbbb00ba
+
+	measure 'Average Price' = AVERAGE(Sheet1[Price])
+		lineageTag: 106c03fa-b8be-4b20-b2ac-c8073cda83f1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Max Price' = MAX(Sheet1[Price])
+		lineageTag: ca5be4fe-736d-4c1c-aac9-75da1d8f65d5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Min Price' = MIN(Sheet1[Price])
+		lineageTag: 20587150-49b6-41c4-a47e-be8109698b78
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'First Price' =
+			
+			VAR MinDate = MIN(Sheet1[Date])
+			RETURN
+			CALCULATE(
+			    AVERAGE(Sheet1[Price]),
+			    Sheet1[Date] = MinDate
+			)
+		lineageTag: 2fbc1ccf-9ac8-4c08-a535-4f269240f7a8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last Price' =
+			
+			VAR MaxDate = MAX(Sheet1[Date])
+			RETURN
+			CALCULATE(
+			    AVERAGE(Sheet1[Price]),
+			    Sheet1[Date] = MaxDate
+			)
+		lineageTag: 65b73bc8-bb6b-4a07-a6db-5930898b9fbf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Price Difference' = [Last Price] - [First Price]
+		lineageTag: 35d9cdb1-98b7-4d4c-a93b-767959467eef
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Price Growth %' =
+			
+			DIVIDE(
+			    [Price Difference],
+			    [First Price],
+			    0
+			)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 6da69844-bedf-4b9e-9d93-5d8d1021cfb8
+
+	column Store
+		dataType: string
+		lineageTag: 22aa9d88-2515-4815-a102-1d67375a19f0
+		summarizeBy: none
+		sourceColumn: Store
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product
+		dataType: string
+		lineageTag: 66d15bc9-8b97-4a53-afe3-3b66f5e62ae2
+		summarizeBy: none
+		sourceColumn: Product
+
+		annotation SummarizationSetBy = Automatic
+
+	column Price
+		dataType: double
+		lineageTag: 06c9e0db-d66e-4097-aaa1-f66e99e6e12b
+		summarizeBy: sum
+		sourceColumn: Price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b14c7620-8f9d-45d9-a583-7791b444507c
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variație
+			isDefault
+			relationship: 4be85925-5885-4996-98a9-66253f073112
+			defaultHierarchy: LocalDateTable_9d1fbb4f-deff-4997-a09e-ad8b8d12447c.'Ierarhie de date'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Sheet1 = m
+		mode: import
+		source =
+				let
+				    Sursă = Excel.Workbook(File.Contents("C:\Users\andre\Downloads\Apocolypse Food Prep.xlsx"), null, true),
+				    Sheet1_Sheet = Sursă{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Anteturi promovate" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Tip modificat" = Table.TransformColumnTypes(#"Anteturi promovate",{{"Store", type text}, {"Product", type text}, {"Price", type number}, {"Date", type date}})
+				in
+				    #"Tip modificat"
+
+	annotation PBI_ResultType = Table
+

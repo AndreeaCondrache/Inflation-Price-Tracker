@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Inflation & Price Tracker 2022"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ae53cfa4-1ddc-442e-9fcc-0c4e590aa87b"
+  }
+}
