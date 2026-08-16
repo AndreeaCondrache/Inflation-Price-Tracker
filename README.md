@@ -1,13 +1,14 @@
 # 🛒 Retail Price & Inflation Tracker (Power BI)
 
-## 📌 Despre Proiect
+##  Despre Proiect
+
 Acest proiect reprezintă un raport interactiv realizat în **Power BI Desktop**, având ca scop monitorizarea și analiza evoluției prețurilor pentru produse alimentare de bază în cursul anului 2022, în trei mari rețele de retail: **Walmart**, **Costco** și **Target**.
 
 Proiectul evaluează dinamica prețurilor, diferențele dintre magazine și calculează indicele de inflație la nivel de produs utilizând formule avansate în limbajul **DAX (Data Analysis Expressions)**.
 
 ---
 
-## 🛠️ Ce am realizat în acest proiect?
+##  Ce am realizat în acest proiect?
 
 1. **Curățarea și Structurarea Datelor:**
    * Importul setului de date din Excel și validarea tipurilor de date (Dată calendaristică, Text, Număr zecimal/Valută).
@@ -25,7 +26,8 @@ Proiectul evaluează dinamica prețurilor, diferențele dintre magazine și calc
 
 ---
 
-## 📊 Pagini și Vizualizări din Dashboard
+##  Pagini și Vizualizări din Dashboard
+
 
 ### 1. Vizualizări de bază (Overview & Baseline Analytics)
 Această pagină oferă o imagine de ansamblu asupra volumului de date, distribuției pe magazine și valorilor statistice ale prețurilor.
