@@ -1,2 +1,19 @@
-**/.pbi/localSettings.json
+# Power BI Cache & User Settings
+*.abf
+*.backup
+*.tmp
+*.log
+.vs/
+*.user
+
+# Power BI Project (PBIP) Cache Folders
+**/cache.abf
+**/.platform
+**/localSettings.json
+**/item.config.json
+
+# Windows System Files
+Thumbs.db
+Desktop.ini
+ehthumbs.db**/.pbi/localSettings.json
 **/.pbi/cache.abf
